@@ -8,7 +8,9 @@
       <th>Symbol</th>
       <th>Qty</th>
       <th>Price</th>
+      <th>Tot</th>
       <th>Average Carrying</th>
+      <th>Capital Gain</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -21,7 +23,9 @@
         <td><%= event.stock.symbol %></td>
         <td><%= event.quantity %></td>
         <td><%= event.price %></td>
+        <td><%= event.total %></td>
         <td><%= event.average_carrying %></td>
+        <td><%= event.capital_gain %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
