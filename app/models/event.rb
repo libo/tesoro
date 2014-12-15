@@ -15,7 +15,6 @@ class Event < ActiveRecord::Base
 
   def average_carrying
     acquisitions_qty = this_and_previous_acquisitions.sum(:quantity)
-    sells_qty = this_and_previous_sell.sum(:quantity)
 
     return 0 if acquisitions_qty == 0
 
@@ -24,14 +23,14 @@ class Event < ActiveRecord::Base
 
   def capital_gain
     if sell?
-      (price - average_carrying) * quantity
+      previous = 0
+
+      previous_sells.each do |sell|
+        previous += sell.quantity * sell.average_carrying
+      end
+
+      ((price - average_carrying) * quantity) - 80
     end
-  end
-
-  private
-
-  def this_and_previous
-
   end
 
   def this_and_previous_acquisitions
@@ -39,8 +38,9 @@ class Event < ActiveRecord::Base
       .where("executed_on <= ?", executed_on)
   end
 
-  def this_and_previous_sell
+  def previous_sells
     Event.sell.order(:executed_on)
       .where("executed_on <= ?", executed_on)
+      .where("id <> ?", id)
   end
 end
