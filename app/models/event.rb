@@ -11,23 +11,22 @@ class Event < ActiveRecord::Base
 
   def pool
     @pool ||= begin
-      rows = []
+      size = 0
+      value = 0
 
       this_and_previous_events.each do |event|
         if event.buy?
-          rows << { size: event.quantity, value: event.total }
+          value += event.total
+          size += event.quantity
         else
-          size_so_far = rows.map{ |v| v[:size]}.sum
-          value_so_far = rows.map{ |v| v[:value]}.sum
-
-          value = ((event.quantity.to_f / size_so_far.to_f) * value_so_far).round(2)
-          rows << { size: -event.quantity, value: -value }
+          value -= ((event.quantity.to_f / size.to_f) * value).round(2)
+          size -= event.quantity
         end
       end
 
       {
-        size: rows.map{ |v| v[:size]}.sum,
-        value: rows.map{ |v| v[:value]}.sum,
+        size: size,
+        value: value,
       }
     end
   end
@@ -51,16 +50,5 @@ class Event < ActiveRecord::Base
 
   def this_and_previous_events
     Event.order(:executed_on).where("executed_on <= ?", executed_on)
-  end
-
-  def this_and_previous_acquisitions
-    Event.buy.order(:executed_on)
-      .where("executed_on <= ?", executed_on)
-  end
-
-  def previous_sells
-    Event.sell.order(:executed_on)
-      .where("executed_on <= ?", executed_on)
-      .where("id <> ?", id)
   end
 end
