@@ -1,0 +1,47 @@
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :action %><br>
+    <%= f.select :action, options_for_select(@actions.collect { |s| [s[0].humanize, s[0]] }, selected: @event.action), {}, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :stock_id %><br>
+    <%= f.collection_select :stock_id, @stocks, :id, :symbol, { prompt: true }, { class: 'form-control' } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :quantity %><br>
+    <%= f.text_field :quantity, class: 'form-control'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :price %><br>
+    <%= f.text_field :price, class: 'form-control', placeholder: '10.00'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :commission %><br>
+    <%= f.text_field :commission, class: 'form-control', placeholder: '0.00'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :executed_on %><br>
+    <%= f.date_select :executed_on, {}, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

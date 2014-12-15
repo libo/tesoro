@@ -4,11 +4,34 @@
   <title>Tesoro</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/slate/bootstrap.min.css" rel="stylesheet">
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Tesoro</a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav">
+      <% #= navigation_menu %>
+    </ul>
 
+    <ul class="nav navbar-nav navbar-right">
+
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <% flash.each do |type, message| %>
+  <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <%= message %>
+  </div>
+  <% end %>
+  <%= yield %>
+</div>
 </body>
 </html>
