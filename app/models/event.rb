@@ -9,28 +9,48 @@ class Event < ActiveRecord::Base
 
   enum action: [ :buy, :sell ]
 
+  def pool
+    @pool ||= begin
+      rows = []
+
+      this_and_previous_events.each do |event|
+        if event.buy?
+          rows << { size: event.quantity, value: event.total }
+        else
+          size_so_far = rows.map{ |v| v[:size]}.sum
+          value_so_far = rows.map{ |v| v[:value]}.sum
+
+          value = ((event.quantity.to_f / size_so_far.to_f) * value_so_far).round(2)
+          rows << { size: -event.quantity, value: -value }
+        end
+      end
+
+      {
+        size: rows.map{ |v| v[:size]}.sum,
+        value: rows.map{ |v| v[:value]}.sum,
+      }
+    end
+  end
+
   def total
     (price * quantity)
   end
 
   def average_carrying
-    acquisitions_qty = this_and_previous_acquisitions.sum(:quantity)
+    return 0 if pool[:size] == 0
 
-    return 0 if acquisitions_qty == 0
-
-    this_and_previous_acquisitions.map(&:total).sum / acquisitions_qty
+    pool[:value] / pool[:size]
   end
 
   def capital_gain
     if sell?
-      previous = 0
-
-      previous_sells.each do |sell|
-        previous += sell.quantity * sell.average_carrying
-      end
-
-      ((price - average_carrying) * quantity) - 80
+      cost = (quantity.to_f / pool[:size].to_f) * pool[:value]
+      (total - cost).round(2)
     end
+  end
+
+  def this_and_previous_events
+    Event.order(:executed_on).where("executed_on <= ?", executed_on)
   end
 
   def this_and_previous_acquisitions
