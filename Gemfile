@@ -16,9 +16,7 @@ gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'bootstrap-material-design-sass', :git => 'https://github.com/pludoni/rails-bootstrap-material-design-sass.git'
 
-gem 'omniauth'
-gem 'omniauth-google-apps'
-gem 'omniauth-google-oauth2'
+gem 'devise'
 
 gem 'pg', group: :production
 
