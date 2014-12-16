@@ -10,6 +10,26 @@
 <h4>Import</h4>
 <div class="panel panel-default">
   <div class="panel-body">
-    <%= link_to("Export all history in CSV", imports_path(format: :csv)) %>
+    <p>
+      You can import a CSV file with all the history.
+      You can download an <%= link_to('example here', asset_path('import_example.csv')) %>
+    </p>
+
+    <%= form_tag(imports_path, method: "post", multipart: true) do %>
+      <div class="form-group">
+        <%= label_tag :file %><br>
+        <%= file_field_tag 'file', class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :wipe_all_exiting_event %><br>
+        <%= radio_button_tag(:wipe_all_exiting_event, '1') %>
+        <%= label_tag(:wipe_all_exiting_event_1, "Yes") %>
+        <%= radio_button_tag(:wipe_all_exiting_event, '0', selected: true) %>
+        <%= label_tag(:wipe_all_exiting_event_0, "No") %>
+      </div>
+
+      <%= submit_tag("Upload") %>
+    <% end %>
   </div>
 </div>
