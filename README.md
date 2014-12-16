@@ -1,7 +1,7 @@
 tesoro
 ======
 
-![Example](http://cl.ly/image/24201l2o2k1a)
+![Example](http://f.cl.ly/items/432K1S3W3H0H2k1z3m31/Screen%20Shot%202014-12-16%20at%2000.59.39.png)
 
 A simple web app to calculate taxes on capital gain according to the Danish tax system (skat means treasure in english and tesoro in italian)
 
