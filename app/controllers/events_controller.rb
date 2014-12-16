@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   before_action :set_actions, only: [:edit, :new]
   before_action :set_currencies, only: [:edit, :new]
 
-  respond_to :html
+  respond_to :html, :csv
 
   def index
     @events = current_user.events.order(:executed_on).all

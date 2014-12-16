@@ -1,0 +1,8 @@
+csv.headers :date, :action, :symbol, :quantity
+
+csv.rows @events do |csv, event|
+  csv.cell :date, event.executed_on
+  csv.cell :action, event.action.upcase
+  csv.cell :symbol, event.stock.symbol
+  csv.cell :quantity, event.quantity
+end
