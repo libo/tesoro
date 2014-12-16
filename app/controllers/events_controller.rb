@@ -6,13 +6,13 @@ class EventsController < ApplicationController
   respond_to :html
 
   def index
-    @events = Event.all.order(:executed_on)
-    @total_capital_gain = Event.total_capital_gain(Date.today.year)
+    @events = current_user.events.order(:executed_on).all
+    @total_capital_gain = current_user.events.total_capital_gain(Date.today.year)
     respond_with(@events)
   end
 
   def new
-    @event = Event.new
+    @event = current_user.events.new
     respond_with(@event)
   end
 
@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(event_params)
+    @event = current_user.events.new(event_params)
 
     if @event.save
       flash[:notice] = 'Event was successfully created.'
@@ -47,7 +47,7 @@ class EventsController < ApplicationController
   private
 
   def set_event
-    @event = Event.find(params[:id])
+    @event = current_user.events.find(params[:id])
   end
 
   def event_params

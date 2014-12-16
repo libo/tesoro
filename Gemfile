@@ -18,6 +18,7 @@ gem 'autoprefixer-rails'
 gem 'bootstrap-material-design-sass', :git => 'https://github.com/pludoni/rails-bootstrap-material-design-sass.git'
 
 gem 'devise'
+gem 'gravatarify'
 
 gem 'pg', group: :production
 

@@ -11,13 +11,12 @@ You can load some example data with.
 
 ```
 rake db:migrate
-rake db:seed
 rails server
-open http://0.0.0.0:3000/events
+open http://0.0.0.0:3000/
+[create a user]
+rake db:seed
 ```
 
 ### TODO:
-- Authentication
-- Associate `Event` to a user
 - Compute commission on sales
 - Compute USD/DKK exchange

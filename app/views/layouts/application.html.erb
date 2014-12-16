@@ -19,7 +19,14 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-
+      <% if current_user.present? %>
+        <li><%= gravatar_tag current_user.email, size: 50, rating: :x, html: { class: "profile-image img-circle" }%></li>
+        <li><a href="#"><%= current_user.email %></a></li>
+        <li class="divider"></li>
+        <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+      <% else %>
+        <li><%= link_to('Login', new_user_session_path)  %>  </li>
+      <% end %>
     </ul>
   </div>
 </div>

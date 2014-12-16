@@ -89,6 +89,7 @@ GEM
       dotenv (= 1.0.2)
     erubis (2.7.0)
     execjs (2.2.2)
+    gravatarify (3.1.1)
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.2.5)
@@ -211,6 +212,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   dotenv-rails
+  gravatarify
   jbuilder (~> 2.0)
   jquery-rails
   pg
