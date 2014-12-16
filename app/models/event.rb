@@ -51,7 +51,7 @@ class Event < ActiveRecord::Base
   def average_carrying
     return 0 if pool[:size] == 0
 
-    (pool[:value] / pool[:size]).round(2)
+    ((pool[:value] / pool[:size])/conversion_rate).round(2)
   end
 
   def capital_gain
