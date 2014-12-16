@@ -16,7 +16,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.events_for_year(year)
-    where("strftime('%Y', executed_on) = ?", year)
+    where("strftime('%Y', executed_on) = ?", year.to_s)
   end
 
   def pool
