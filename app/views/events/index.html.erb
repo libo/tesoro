@@ -37,7 +37,10 @@
   </tbody>
 </table>
 
-<p><strong>Total capital gain this year:</strong> <%= @total_capital_gain %></p>
+<p>
+  <strong>Total capital gain this year:</strong>
+  <%= number_to_currency(@total_capital_gain, locale: :da) %>
+</p>
 
 <br>
 
