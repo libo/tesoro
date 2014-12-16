@@ -2,7 +2,7 @@ csv.headers :executed_on, :action, :symbol, :currency, :quantity, :price, :commi
 
 csv.rows @events do |csv, event|
   csv.cell :executed_on, event.executed_on
-  csv.cell :action, event.action.upcase
+  csv.cell :action, event.action.downcase
   csv.cell :symbol, event.stock.symbol
   csv.cell :currency, event.currency.code
   csv.cell :quantity, event.quantity
