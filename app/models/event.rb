@@ -19,7 +19,15 @@ class Event < ActiveRecord::Base
   end
 
   def self.events_for_year(year)
-    where("strftime('%Y', executed_on) = ?", year.to_s)
+    # This is a bit ugly but at least we can still run
+    # both Postgres and SQLite
+
+    day = Date.parse("1-1-#{year}")
+    beginning_of_year = day.at_beginning_of_year
+    end_of_year = day.at_end_of_year.to_date
+
+    where('executed_on >= ?', beginning_of_year)
+      .where('executed_on >= ?', end_of_year)
   end
 
   def pool
