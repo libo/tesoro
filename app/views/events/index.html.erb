@@ -42,6 +42,21 @@
   <%= number_to_currency(@total_capital_gain, locale: :da) %>
 </p>
 
+<p>
+  <strong>Total stocks acquired:</strong>
+  <%= @quantity_acquired %>
+</p>
+
+<p>
+  <strong>Total stocks sold:</strong>
+  <%= @quantity_sold %>
+</p>
+
+<p>
+  <strong>Total stock left in pool:</strong>
+  <%= @quantity_acquired - @quantity_sold %>
+</p>
+
 <br>
 
 <%= link_to 'New Event', new_event_path %>
