@@ -10,13 +10,13 @@ class Event < ActiveRecord::Base
   enum action: [ :buy, :sell ]
 
   def self.total_capital_gain(year)
-    start_year = Date.parse("1-1-#{year}").at_beginning_of_year
-    end_year   = Date.parse("1-1-#{year}").at_end_of_year
-
     Event.sell
-      .where("executed_on >= ?", start_year)
-      .where("executed_on <= ?", end_year)
+      .events_for_year(year)
       .map(&:capital_gain).sum.to_i
+  end
+
+  def self.events_for_year(year)
+    where("strftime('%Y', executed_on) = ?", year)
   end
 
   def pool
