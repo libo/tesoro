@@ -9,6 +9,16 @@ class Event < ActiveRecord::Base
 
   enum action: [ :buy, :sell ]
 
+  def self.total_capital_gain(year)
+    start_year = Date.parse("1-1-#{year}").at_beginning_of_year
+    end_year   = Date.parse("1-1-#{year}").at_end_of_year
+
+    Event.sell
+      .where("executed_on >= ?", start_year)
+      .where("executed_on <= ?", end_year)
+      .map(&:capital_gain).sum.to_i
+  end
+
   def pool
     @pool ||= begin
       size = 0
@@ -38,7 +48,7 @@ class Event < ActiveRecord::Base
   def average_carrying
     return 0 if pool[:size] == 0
 
-    pool[:value] / pool[:size]
+    (pool[:value] / pool[:size]).round(2)
   end
 
   def capital_gain

@@ -7,6 +7,7 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all.order(:executed_on)
+    @total_capital_gain = Event.total_capital_gain(Date.today.year)
     respond_with(@events)
   end
 
