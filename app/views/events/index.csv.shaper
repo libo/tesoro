@@ -1,8 +1,15 @@
-csv.headers :date, :action, :symbol, :quantity
+csv.headers :date, :action, :symbol, :quantity, :price, :currency,
+  :conversion, :total, :average_carrying, :capital_gain
 
 csv.rows @events do |csv, event|
   csv.cell :date, event.executed_on
   csv.cell :action, event.action.upcase
   csv.cell :symbol, event.stock.symbol
   csv.cell :quantity, event.quantity
+  csv.cell :price, event.price
+  csv.cell :currency, event.currency.code
+  csv.cell :conversion, event.conversion_rate
+  csv.cell :total, event.total
+  csv.cell :average_carrying, event.average_carrying
+  csv.cell :capital_gain, event.capital_gain
 end

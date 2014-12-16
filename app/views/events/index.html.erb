@@ -1,5 +1,13 @@
 <h1>Listing events</h1>
 
+<p>
+  <%= link_to("Download this view in CSV", events_path(format: :csv)) %>
+</p>
+
+<p>
+  <%= link_to 'New Event', new_event_path %>
+<p>
+
 <table data-toggle="table" class="table table-striped">
   <thead>
     <tr>
@@ -58,5 +66,3 @@
 </p>
 
 <br>
-
-<%= link_to 'New Event', new_event_path %>
