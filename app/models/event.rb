@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   belongs_to :stock
   belongs_to :user
 
+  validates :user, presence: true
   validates :stock, presence: true
   validates :price, presence: true
   validates :quantity, presence: true
