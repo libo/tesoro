@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_stocks, only: [:edit, :new]
   before_action :set_actions, only: [:edit, :new]
+  before_action :set_currencies, only: [:edit, :new]
 
   respond_to :html
 
@@ -57,6 +58,7 @@ class EventsController < ApplicationController
       :quantity,
       :price,
       :commission,
+      :currency_id,
       :executed_on
     )
   end
@@ -67,5 +69,9 @@ class EventsController < ApplicationController
 
   def set_actions
     @actions = Event.actions
+  end
+
+  def set_currencies
+    @currencies = Currency.all
   end
 end

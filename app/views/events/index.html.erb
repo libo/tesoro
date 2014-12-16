@@ -4,10 +4,12 @@
   <thead>
     <tr>
       <th>Date</th>
-      <th>Type</th>
+      <th>Action</th>
       <th>Symbol</th>
       <th>Qty</th>
       <th>Price</th>
+      <th>Currency</th>
+      <th>Conversion</th>
       <th>Tot</th>
       <th>Average Carrying</th>
       <th>Capital Gain</th>
@@ -23,9 +25,11 @@
         <td><%= event.stock.symbol %></td>
         <td><%= event.quantity %></td>
         <td><%= event.price %></td>
-        <td><%= event.total %></td>
-        <td><%= event.average_carrying %></td>
-        <td><%= event.capital_gain %></td>
+        <td><%= event.currency.code %></td>
+        <td><%= event.conversion_rate %></td>
+        <td><%= number_to_currency(event.total, locale: :da) %></td>
+        <td><%= number_to_currency(event.average_carrying, locale: event.currency.locale) %></td>
+        <td><%= number_to_currency(event.capital_gain, locale: :da) %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

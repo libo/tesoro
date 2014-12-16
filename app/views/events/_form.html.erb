@@ -18,12 +18,17 @@
 
   <div class="form-group">
     <%= f.label :stock_id %><br>
-    <%= f.collection_select :stock_id, @stocks, :id, :symbol, { prompt: true }, { class: 'form-control' } %>
+    <%= f.collection_select :stock_id, @stocks, :id, :symbol, { }, { class: 'form-control' } %>
   </div>
 
   <div class="form-group">
     <%= f.label :quantity %><br>
     <%= f.text_field :quantity, class: 'form-control'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :currency_id %><br>
+    <%= f.collection_select :currency_id, @currencies, :id, :code, { }, { class: 'form-control' } %>
   </div>
 
   <div class="form-group">
@@ -38,7 +43,7 @@
 
   <div class="form-group">
     <%= f.label :executed_on %><br>
-    <%= f.date_select :executed_on, {}, class: 'form-control' %>
+    <%= f.date_select :executed_on, {order: [:year, :month, :day]}, class: 'form-control' %>
   </div>
 
   <div class="actions">

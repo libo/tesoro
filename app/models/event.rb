@@ -1,9 +1,11 @@
 class Event < ActiveRecord::Base
   belongs_to :stock
   belongs_to :user
+  belongs_to :currency
 
   validates :user, presence: true
   validates :stock, presence: true
+  validates :currency, presence: true
   validates :price, presence: true
   validates :quantity, presence: true
   validates :executed_on, presence: true
@@ -43,7 +45,7 @@ class Event < ActiveRecord::Base
   end
 
   def total
-    (price * quantity)
+    price * quantity * conversion_rate
   end
 
   def average_carrying
@@ -57,6 +59,11 @@ class Event < ActiveRecord::Base
       cost = (quantity.to_f / pool[:size].to_f) * pool[:value]
       (total - cost).round(2)
     end
+  end
+
+  def conversion_rate
+    # TODO Implement conversion rate with data on executed_on
+    currency.default_conversion_rate
   end
 
   def this_and_previous_events
