@@ -20,6 +20,7 @@ gem 'bootstrap-material-design-sass', :git => 'https://github.com/pludoni/rails-
 gem 'devise'
 gem 'gravatarify'
 gem 'csv_shaper'
+gem 'smarter_csv'
 
 gem 'pg', group: :production
 

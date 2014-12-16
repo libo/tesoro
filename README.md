@@ -11,6 +11,7 @@ You can load some example data with.
 
 ```
 rake db:migrate
+rake tesoro:import_usd_conversion  # Import USD/DDK conversion rate by Danish National Bank
 rails server
 open http://0.0.0.0:3000/
 [create a user]

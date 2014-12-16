@@ -62,8 +62,7 @@ class Event < ActiveRecord::Base
   end
 
   def conversion_rate
-    # TODO Implement conversion rate with data on executed_on
-    currency.default_conversion_rate
+    currency.conversion_rate_to_default_currency(executed_on)
   end
 
   def this_and_previous_events
