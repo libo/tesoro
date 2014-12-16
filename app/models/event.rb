@@ -13,7 +13,7 @@ class Event < ActiveRecord::Base
   enum action: [ :buy, :sell ]
 
   def self.total_capital_gain(year)
-    Event.sell
+    sell
       .events_for_year(year)
       .map(&:capital_gain).sum.to_i
   end
