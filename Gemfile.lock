@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/pludoni/rails-bootstrap-material-design-sass.git
-  revision: 6f70594ad011644a91e45358d54bb733a8182c07
-  specs:
-    bootstrap-material-design-sass (0.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -85,6 +79,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise-bootstrap-views (0.0.3)
     diff-lcs (1.2.5)
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
@@ -208,13 +203,13 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller
-  bootstrap-material-design-sass!
   bootstrap-sass
   byebug
   capistrano-rails
   coffee-rails (~> 4.0.0)
   csv_shaper
   devise
+  devise-bootstrap-views
   dotenv-rails
   gravatarify
   jbuilder (~> 2.0)
