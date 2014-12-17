@@ -20,7 +20,7 @@ class Conversion < ActiveRecord::Base
       SmarterCSV.process(path, options).each do |row|
         if Conversion.where(book_on: row[:date]).count == 0
           rate = row[:rate].gsub(",",".").to_f/100
-          Conversion.create!(book_on: row[:date], rate: rate, currency: currency)
+          Conversion.create!(book_on: Date.parse(row[:date]), rate: rate, currency: currency)
         end
       end
     end
