@@ -18,9 +18,11 @@ class Conversion < ActiveRecord::Base
       path = Rails.root.join("db", "currency_seeds", "#{code.downcase}.csv")
 
       SmarterCSV.process(path, options).each do |row|
-        if Conversion.where(book_on: row[:date]).count == 0
+        book_on = Date.parse(row[:date])
+
+        if Conversion.where(book_on: book_on).count == 0
           rate = row[:rate].gsub(",",".").to_f/100
-          Conversion.create!(book_on: Date.parse(row[:date]), rate: rate, currency: currency)
+          Conversion.create!(book_on: book_on, rate: rate, currency: currency)
         end
       end
     end
