@@ -9,7 +9,7 @@ describe Event do
     # An individual buys shares in a listed company A as follows:
     # 1 Jan 2010: Purchase 100 shares for DKK 200
     # 1 Jan 2011: Purchase 200 shares for DKK 1,000
-    # 1 Jan 2012: Purchase 300 shares for DKK 1,200                                                                                DKK    100
+    # 1 Jan 2012: Purchase 300 shares for DKK 1,200
     Event.create(user: user, stock: zen, action: :buy, quantity: 100, price: 2, executed_on: 10.days.ago, currency: currency)
     Event.create(user: user, stock: zen, action: :buy, quantity: 200, price: 5, executed_on: 9.days.ago, currency: currency)
     e3 = Event.create(user: user, stock: zen, action: :buy, quantity: 300, price: 4, executed_on: 8.days.ago, currency: currency)
