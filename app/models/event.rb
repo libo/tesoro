@@ -74,6 +74,7 @@ class Event < ActiveRecord::Base
   end
 
   def this_and_previous_events
-    Event.order(:executed_on).where("executed_on <= ?", executed_on)
+    # ordered so that buy are before sales.
+    Event.order(:executed_on, :action).where("executed_on <= ?", executed_on)
   end
 end
