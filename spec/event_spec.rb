@@ -12,7 +12,7 @@ describe Event do
     # 1 Jan 2012: Purchase 300 shares for DKK 1,200                                                                                DKK    100
     Event.create(user: user, stock: zen, action: :buy, quantity: 100, price: 2, executed_on: 10.days.ago, currency: currency)
     Event.create(user: user, stock: zen, action: :buy, quantity: 200, price: 5, executed_on: 9.days.ago, currency: currency)
-    e3 = Event.create(stock: zen, action: :buy, quantity: 300, price: 4, executed_on: 8.days.ago, currency: currency)
+    e3 = Event.create(user: user, stock: zen, action: :buy, quantity: 300, price: 4, executed_on: 8.days.ago, currency: currency)
 
     # At this point the individual’s share pool for company A shares is:
     # 1 Jan 2010      100     DKK   200
