@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   respond_to :html, :csv
 
   def index
-    @events = current_user.events.order(:executed_on).all
+    @events = current_user.events.order(:executed_on, :action).all
     @total_capital_gain = current_user.events.total_capital_gain(Date.today.year)
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold
