@@ -83,5 +83,6 @@ class Event < ActiveRecord::Base
     Event.order(:executed_on, :action)
       .where("executed_on <= ?", executed_on)
       .where(user: user)
+      .where(stock: stock)
   end
 end

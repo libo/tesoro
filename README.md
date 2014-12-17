@@ -1,7 +1,7 @@
 tesoro
 ======
 
-![Example](http://f.cl.ly/items/3N1z432n0z2c2g2R3t38/Screen%20Shot%202014-12-16%20at%2008.54.29.png)
+![Example](http://f.cl.ly/items/0q0l0f2u3e2e3U0g2J2Q/Screen%20Shot%202014-12-17%20at%2009.12.45.png)
 
 A simple web app to calculate taxes on capital gain according to the Danish tax system (skat means treasure in english and tesoro in italian)
 
@@ -20,4 +20,3 @@ rake db:seed
 
 ### TODO:
 - Compute commission on sales
-- Compute USD/DKK exchange
