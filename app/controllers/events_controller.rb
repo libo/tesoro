@@ -1,3 +1,5 @@
+require 'tax_calculator'
+
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_stocks, only: [:edit, :new]
@@ -7,10 +9,15 @@ class EventsController < ApplicationController
   respond_to :html, :csv
 
   def index
+    year = Date.today.year
+
     @events = current_user.events.order(:executed_on, :action).all
-    @total_capital_gain = current_user.events.total_capital_gain(Date.today.year)
+    @total_capital_gain = current_user.events.total_capital_gain(year)
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold
+
+    @taxes_unmarried = TaxCalculator.taxes_on(@total_capital_gain, year, false)
+    @taxes_married = TaxCalculator.taxes_on(@total_capital_gain, year, true)
     respond_with(@events)
   end
 

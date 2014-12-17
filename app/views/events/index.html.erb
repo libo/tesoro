@@ -65,4 +65,16 @@
   <%= @quantity_acquired - @quantity_sold %>
 </p>
 
+<hr>
+
+<h3>To pay this year</h3>
+<p>
+  <strong>Total taxes for not married:</strong>
+  <%= number_to_currency(@taxes_unmarried, locale: :da) %>
+</p>
+<p>
+  <strong>Total taxes for married:</strong>
+  <%= number_to_currency(@taxes_married, locale: :da) %>
+</p>
+
 <br>
