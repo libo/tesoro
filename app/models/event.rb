@@ -27,7 +27,7 @@ class Event < ActiveRecord::Base
     end_of_year = day.at_end_of_year.to_date
 
     where('executed_on >= ?', beginning_of_year)
-      .where('executed_on >= ?', end_of_year)
+      .where('executed_on <= ?', end_of_year)
   end
 
   def pool
