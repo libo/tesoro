@@ -110,24 +110,4 @@ describe Event do
     # Gevinst = 81.250
     e4.capital_gain.to_i.should == 81250
   end
-
-  it "passes Skat.dk example 2" do
-    # From: https://www.skat.dk/SKAT.aspx?oId=1843376
-    #
-    # Køb i år 2000, nominel værdi af aktierne = 50.000 kr. eller 500 aktier à 100 kr. Pris pr. aktie = 300 kr.
-    # Køb i år 2001, nominel værdi af aktierne = 100.000 kr. eller 1000 aktier à 100 kr. Pris pr. aktie = 200 kr.
-    # Køb i år 2006, nominel værdi af aktierne = 50.000 kr. eller 500 aktier à 100 kr. Pris pr. aktie = 150 kr.
-    Event.create(user: user, stock: fiat, action: :buy, quantity: 500, price: 300, executed_on: Date.parse('2000-1-1'), currency: currency)
-    Event.create(user: user, stock: fiat, action: :buy, quantity: 1000, price: 200, executed_on: Date.parse('2001-1-1'), currency: currency)
-    e3 = Event.create(user: user, stock: fiat, action: :buy, quantity: 500, price: 150, executed_on: Date.parse('2006-1-1'), currency: currency)
-
-    # Gennemsnitlig købesum pr. aktie, 425.000 kr. / 2.000 aktier = 212,50
-    e3.average_carrying.should == 212.50
-
-    # Salgssum for 1.500 aktier i 2011 for 400.000 kr (Pris pr. aktie = 266,66 kr.)
-    e4 = Event.create(user: user, stock: fiat, action: :sell, quantity: 1500, price: 266.6667, executed_on: Date.parse('2006-1-1'), currency: currency)
-
-    # Gevinst = 81.250
-    e4.capital_gain.to_i.should == 81250
-  end
 end
