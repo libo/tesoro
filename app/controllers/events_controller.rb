@@ -9,15 +9,19 @@ class EventsController < ApplicationController
   respond_to :html, :csv
 
   def index
-    year = Date.today.year
+    if params[:date].present? && params[:date][:year].present?
+      @year = params[:date][:year].to_i
+    else
+      @year = Date.today.year
+    end
 
     @events = current_user.events.order(:executed_on, :action).all
-    @total_capital_gain = current_user.events.total_capital_gain(year)
+    @total_capital_gain = current_user.events.total_capital_gain(@year)
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold
 
-    @taxes_unmarried = TaxCalculator.taxes_on(@total_capital_gain, year, false)
-    @taxes_married = TaxCalculator.taxes_on(@total_capital_gain, year, true)
+    @taxes_unmarried = TaxCalculator.taxes_on(@total_capital_gain, @year, false)
+    @taxes_married = TaxCalculator.taxes_on(@total_capital_gain, @year, true)
     respond_with(@events)
   end
 

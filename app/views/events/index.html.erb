@@ -48,6 +48,20 @@
   </tbody>
 </table>
 
+<%= form_tag(events_path, method: :get) do %>
+  <%= select_year(@year, field_name: 'year') %>
+<% end %>
+
+<h3>Year stats for <%= @year %></h3>
+
+<script>
+$(function() {
+  $('#date_year').change(function() {
+    this.form.submit();
+  });
+});
+</script>
+
 <p>
   <strong>Total capital gain this year:</strong>
   <%= number_to_currency(@total_capital_gain, locale: :da) %>
@@ -70,7 +84,7 @@
 
 <hr>
 
-<h3>To pay this year</h3>
+<h3>To pay in <%= @year %></h3>
 <p>
   <strong>Total taxes for not married:</strong>
   <%= number_to_currency(@taxes_unmarried, locale: :da) %>
