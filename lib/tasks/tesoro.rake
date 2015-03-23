@@ -3,5 +3,4 @@ namespace :tesoro do
   task import_usd_conversion: :environment do
     Conversion.import('USD')
   end
-
 end
