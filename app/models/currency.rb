@@ -29,6 +29,7 @@ class Currency < ActiveRecord::Base
 
   def near_conversion(on)
     Conversion.where("book_on < ?", on).
+      order("book_on DESC").
       where(currency: self).first
   end
 end
