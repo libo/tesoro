@@ -49,7 +49,12 @@
 </table>
 
 <%= form_tag(events_path, method: :get) do %>
-  <%= select_year(@year, field_name: 'year') %>
+  <%= select_year(
+    @year,
+    field_name: 'year',
+    start_year: @events.first.executed_on.year,
+    end_year: @events.last.executed_on.year
+  ) %>
 <% end %>
 
 <h3>Year stats for <%= @year %></h3>
