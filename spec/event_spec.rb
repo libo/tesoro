@@ -23,7 +23,7 @@ describe Event do
     e3.average_carrying.should == 4.0
 
     # On 1 Jan 2013 350 shares are sold for DKK 1,505
-    e4 = Event.create(user: user, user: user, stock: fiat, action: :sell, quantity: 350, price: 4.3, executed_on: Date.parse('2013-1-1'), currency: currency)
+    e4 = Event.create(user: user, stock: fiat, action: :sell, quantity: 350, price: 4.3, executed_on: Date.parse('2013-1-1'), currency: currency)
 
     # Proceeds                   DKK 1,505
     # Cost ((350 / 600) x 2,400) DKK 1,400
@@ -48,7 +48,7 @@ describe Event do
     # Pool             400      DKK 41,200
 
     # 31 July 2009: Sale of 150 shares for DKK 16,500 (he keeps 250 shares).
-    e4 = Event.create(user: user, user: user, stock: fiat, action: :sell, quantity: 150, price: 110, executed_on: Date.parse('2009-7-31'), currency: currency)
+    e4 = Event.create(user: user, stock: fiat, action: :sell, quantity: 150, price: 110, executed_on: Date.parse('2009-7-31'), currency: currency)
 
     # The capital gains on sale is therefore calculated as:
     # Proceeds                    DKK 16,500
