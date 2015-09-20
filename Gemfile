@@ -40,6 +40,7 @@ group :development do
   gem 'sqlite3'
   gem 'capistrano-rails'
   gem 'binding_of_caller'
+  gem 'web-console', '~> 2.0'
 end
 
 # Use debugger
