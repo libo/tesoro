@@ -22,6 +22,9 @@ class EventsController < ApplicationController
 
     @taxes_unmarried = TaxCalculator.taxes_on(@total_capital_gain, @year, false)
     @taxes_married = TaxCalculator.taxes_on(@total_capital_gain, @year, true)
+
+    @start_year = start_year
+    @end_year = end_year
     respond_with(@events)
   end
 
@@ -59,6 +62,22 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def start_year
+    if @events.first
+      @events.first.executed_on.year
+    else
+      Time.now.year - 2
+    end
+  end
+
+  def end_year
+    if @events.last
+      @events.last.executed_on.year
+    else
+      Time.now.year
+    end
+  end
 
   def set_event
     @event = current_user.events.find(params[:id])

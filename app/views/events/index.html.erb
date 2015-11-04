@@ -52,8 +52,8 @@
   <%= select_year(
     @year,
     field_name: 'year',
-    start_year: @events.first.executed_on.year,
-    end_year: @events.last.executed_on.year
+    start_year: @start_year,
+    end_year: @end_year
   ) %>
 <% end %>
 
