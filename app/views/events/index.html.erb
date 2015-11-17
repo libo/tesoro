@@ -41,8 +41,8 @@
         <td><%= number_to_currency(event.total, locale: :da) %></td>
         <td><%= number_to_currency(event.average_carrying, locale: event.currency.locale) %></td>
         <td><%= number_to_currency(event.capital_gain, locale: :da) %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="event-edit"><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td class="event-destroy"><%= link_to 'Destroy', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
