@@ -59,11 +59,8 @@ class Event < ActiveRecord::Base
 
   def capital_gain
     if sell?
-      if pool[:size] > 0
-        cost = (quantity.to_f / pool[:size].to_f) * pool[:value]
-      else
-        cost = 0
-      end
+      previous_event = this_and_previous_events[-2]
+      cost = (quantity.to_f / previous_event.pool[:size]) * previous_event.pool[:value]
 
       (total - cost).round(2)
     end

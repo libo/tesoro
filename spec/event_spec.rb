@@ -29,6 +29,25 @@ describe Event do
     # Cost ((350 / 600) x 2,400) DKK 1,400
     # Taxable gain               DKK   105
     e4.capital_gain.should == 105.0
+
+    # The following WAS NOT part of Lars' example
+
+    # Pool               250     DKK 1,000
+    e4.pool[:size].should == 250
+    e4.pool[:value].should == 1000
+
+    # On 1 Jan 2014 the remaining 250 shares are sold for DKK 2,500
+    e5 = Event.create(user: user, stock: fiat, action: :sell, quantity: 250, price: 10, executed_on: Date.parse('2014-1-1'), currency: currency)
+
+    # Proceeds                   DKK 2,500
+    # Cost ((250 / 250) x 1,000) DKK 1,000
+    # Taxable gain               DKK 1,500
+    e5.capital_gain.should == 1500
+
+    # And just to be sure:
+    e5.pool[:size].should == 0
+    e5.pool[:value].should == 0
+    e5.average_carrying.should == 0
   end
 
   it "passes Lars example 2" do
