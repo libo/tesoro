@@ -129,4 +129,12 @@ describe Event do
     # Gevinst = 81.250
     e4.capital_gain.to_i.should == 81250
   end
+
+  describe "#capital_gain" do
+    it "handle case when the first event is a sell (empty pool)" do
+      e = Event.create(user: user, stock: fiat, action: :sell, quantity: 500, price: 300, executed_on: Date.parse('2000-1-1'), currency: currency)
+
+      expect { e.capital_gain }.to_not raise_error
+    end
+  end
 end
