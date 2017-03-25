@@ -6,6 +6,12 @@ class Currency < ActiveRecord::Base
 
   DEFAULT_CURRENCY = 'DDK'
 
+  def self.most_used_in_events_id
+    if event = Event.last
+      event.currency.id
+    end
+  end
+
   # Return a conversion rate
   #
   # If the conversion rate is not available for the date look for

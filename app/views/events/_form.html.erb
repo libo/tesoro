@@ -28,7 +28,13 @@
 
   <div class="form-group">
     <%= f.label :currency_id %><br>
-    <%= f.collection_select :currency_id, @currencies, :id, :code, { }, { class: 'form-control' } %>
+    <%= f.collection_select :currency_id,
+      @currencies,
+      :id,
+      :code,
+      { selected: Currency.most_used_in_events_id },
+      { class: 'form-control' }
+    %>
   </div>
 
   <div class="form-group">
