@@ -20,14 +20,18 @@ class Currency < ActiveRecord::Base
   def conversion_rate_to_default_currency(on)
     return 1 if code.upcase == DEFAULT_CURRENCY
 
-    conversion = Conversion.where(book_on: on).where(currency: self).first
+    cache_key = "conversion_on/#{on}"
 
-    if conversion.present?
-      conversion.rate
-    elsif nc = near_conversion(on)
-      nc.rate
-    else
-      default_conversion_rate
+    Rails.cache.fetch(cache_key) do
+      conversion = Conversion.where(book_on: on).where(currency: self).first
+
+      if conversion.present?
+        conversion.rate
+      elsif nc = near_conversion(on)
+        nc.rate
+      else
+        default_conversion_rate
+      end
     end
   end
 
