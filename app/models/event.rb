@@ -13,9 +13,12 @@ class Event < ActiveRecord::Base
   enum action: [ :buy, :sell ]
 
   def self.total_capital_gain(year)
-    sell
-      .events_for_year(year)
-      .map(&:capital_gain).sum.to_i
+    sold_in_year = sell.events_for_year(year)
+    cache_key = Digest::SHA1.hexdigest(sold_in_year.map(&:cache_key).join('/'))
+
+    Rails.cache.fetch("capital_gain/#{cache_key}", expires_in: 12.hours) do
+      sold_in_year.map(&:capital_gain).sum.to_i
+    end
   end
 
   def self.events_for_year(year)
