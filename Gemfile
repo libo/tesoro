@@ -8,6 +8,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'rails_12factor', group: :production
 gem 'dotenv-rails'
 gem 'turbolinks'
+gem 'dalli'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
