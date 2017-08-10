@@ -26,7 +26,9 @@ class Event < ActiveRecord::Base
   end
 
   def pool
-    @pool ||= begin
+    cache_key = Digest::SHA1.hexdigest(this_and_previous_events.map(&:cache_key).join('/'))
+
+    Rails.cache.fetch("event_pool/#{cache_key}", expires_in: 12.hours) do
       size = 0
       value = 0
 
