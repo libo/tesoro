@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+USD_URL=http://www.nationalbanken.dk/_vti_bin/DN/DataService.svc/CurrencyRateCSV\?lang\=da\&iso\=USD
+CURRENCY_FILE=db/currency_seeds/usd.csv
+
+LAST_ROW=$(tail -n1 $CURRENCY_FILE)
+
+curl $USD_URL | \
+  tr -d "\r" | \
+  csplit -s - %$LAST_ROW%+1 && \
+  cat xx00 >> $CURRENCY_FILE && \
+  rm xx00
