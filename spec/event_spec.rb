@@ -20,7 +20,7 @@ describe Event do
     # 1 Jan 2012      300     DKK 1,200
     # Pool            600     DKK 2,400
     # (with an average cost of DKK 4,00 per share)
-    e3.average_carrying.should == 4.0
+    expect(e3.average_carrying).to eq(4.0)
 
     # On 1 Jan 2013 350 shares are sold for DKK 1,505
     e4 = Event.create(user: user, stock: fiat, action: :sell, quantity: 350, price: 4.3, executed_on: Date.parse('2013-1-1'), currency: currency)
@@ -28,13 +28,13 @@ describe Event do
     # Proceeds                   DKK 1,505
     # Cost ((350 / 600) x 2,400) DKK 1,400
     # Taxable gain               DKK   105
-    e4.capital_gain.should == 105.0
+    expect(e4.capital_gain).to eq(105.0)
 
     # The following WAS NOT part of Lars' example
 
     # Pool               250     DKK 1,000
-    e4.pool[:size].should == 250
-    e4.pool[:value].should == 1000
+    expect(e4.pool[:size]).to eq(250)
+    expect(e4.pool[:value]).to eq(1000)
 
     # On 1 Jan 2014 the remaining 250 shares are sold for DKK 2,500
     e5 = Event.create(user: user, stock: fiat, action: :sell, quantity: 250, price: 10, executed_on: Date.parse('2014-1-1'), currency: currency)
@@ -42,12 +42,12 @@ describe Event do
     # Proceeds                   DKK 2,500
     # Cost ((250 / 250) x 1,000) DKK 1,000
     # Taxable gain               DKK 1,500
-    e5.capital_gain.should == 1500
+    expect(e5.capital_gain).to eq(1500)
 
     # And just to be sure:
-    e5.pool[:size].should == 0
-    e5.pool[:value].should == 0
-    e5.average_carrying.should == 0
+    expect(e5.pool[:size]).to eq(0)
+    expect(e5.pool[:value]).to eq(0)
+    expect(e5.average_carrying).to eq(0)
   end
 
   it "passes Lars example 2" do
@@ -73,7 +73,7 @@ describe Event do
     # Proceeds                    DKK 16,500
     # Cost ((150 / 400) x 41,200) DKK 15,450
     # Capital gain                DKK  1,050
-    e4.capital_gain.should == 1050.0
+    expect(e4.capital_gain).to eq(1050.0)
 
     # The pool can now be restated as:
     # Pool (Bt Fwd)    400        DKK 41,200
@@ -100,14 +100,14 @@ describe Event do
     # Proceeds                    DKK 21,600
     # Cost ((200 / 600) x 63,000) DKK 21,000
     # Capital gain                DKK    600
-    e7.capital_gain.should == 600
+    expect(e7.capital_gain).to eq(600)
 
     # The pool can now be restated as:
     # Pool (Bt Fwd)    600        DKK 63,000
     # Sale            (200)      (DKK 21,000)
     # Pool (C Fwd)     400        DKK 42,000
     # (with an average cost of DKK 105 per share)
-    e7.average_carrying.should == 105.00
+    expect(e7.average_carrying).to eq(105.00)
   end
 
   it "passes Skat.dk example 1" do
@@ -121,13 +121,13 @@ describe Event do
     e3 = Event.create(user: user, stock: fiat, action: :buy, quantity: 500, price: 150, executed_on: Date.parse('2006-1-1'), currency: currency)
 
     # Gennemsnitlig købesum pr. aktie, 425.000 kr. / 2.000 aktier = 212,50
-    e3.average_carrying.should == 212.50
+    expect(e3.average_carrying).to eq(212.50)
 
     # Salgssum for 1.500 aktier i 2011 for 400.000 kr (Pris pr. aktie = 266,66 kr.)
     e4 = Event.create(user: user, stock: fiat, action: :sell, quantity: 1500, price: 266.6667, executed_on: Date.parse('2006-1-1'), currency: currency)
 
     # Gevinst = 81.250
-    e4.capital_gain.to_i.should == 81250
+    expect(e4.capital_gain.to_i).to eq(81250)
   end
 
   describe "#capital_gain" do
