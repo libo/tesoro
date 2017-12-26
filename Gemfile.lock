@@ -260,6 +260,7 @@ DEPENDENCIES
   rails (= 4.2.10)
   rails-timeago (~> 2.0)
   rails_12factor
+  responders (~> 2.0)
   rspec-rails
   sass-rails (~> 5.0.4)
   sdoc (~> 0.4.0)
