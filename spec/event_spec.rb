@@ -124,7 +124,7 @@ describe Event do
     expect(e3.average_carrying).to eq(212.50)
 
     # Salgssum for 1.500 aktier i 2011 for 400.000 kr (Pris pr. aktie = 266,66 kr.)
-    e4 = Event.create(user: user, stock: fiat, action: :sell, quantity: 1500, price: 266.6667, executed_on: Date.parse('2006-1-1'), currency: currency)
+    e4 = Event.create(user: user, stock: fiat, action: :sell, quantity: 1500, price: 266.6667, executed_on: Date.parse('2011-1-1'), currency: currency)
 
     # Gevinst = 81.250
     expect(e4.capital_gain.to_i).to eq(81250)
