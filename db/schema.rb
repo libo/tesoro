@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217003451) do
+ActiveRecord::Schema.define(version: 20171226165341) do
 
   create_table "conversions", force: true do |t|
     t.integer  "currency_id"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20141217003451) do
     t.integer  "currency_id"
     t.integer  "stock_id"
     t.integer  "quantity"
-    t.decimal  "price",       precision: 8, scale: 2
-    t.decimal  "commission",  precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",       precision: 8, scale: 4
+    t.decimal  "commission",  precision: 8, scale: 4, default: 0.0
     t.date     "executed_on"
     t.datetime "created_at"
     t.datetime "updated_at"
