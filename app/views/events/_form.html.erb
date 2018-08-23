@@ -49,7 +49,7 @@
 
   <div class="form-group">
     <%= f.label :executed_on %><br>
-    <%= f.date_select :executed_on, {order: [:year, :month, :day], end_year: Date.today.year}, class: 'form-control' %>
+    <%= f.date_select :executed_on, { order: [:year, :month, :day], end_year: Date.today.year, default: { day: 15 } }, class: 'form-control' %>
   </div>
 
   <div class="actions">
