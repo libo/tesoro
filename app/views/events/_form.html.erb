@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :action %><br>
-    <%= f.select :action, options_for_select(@actions.collect { |s| [s[0].humanize, s[0]] }, selected: @event.action), {}, class: 'form-control' %>
+    <%= f.label :stock_id %><br>
+    <%= f.collection_select :stock_id, @stocks, :id, :symbol, {}, { class: 'form-control' } %>
   </div>
 
   <div class="form-group">
-    <%= f.label :stock_id %><br>
-    <%= f.collection_select :stock_id, @stocks, :id, :symbol, { }, { class: 'form-control' } %>
+    <%= f.label :action %><br>
+    <%= f.select :action, options_for_select(@actions.collect { |s| [s[0].humanize, s[0]] }, selected: @event.action), {}, class: 'form-control' %>
   </div>
 
   <div class="form-group">
