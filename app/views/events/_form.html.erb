@@ -12,18 +12,13 @@
   <% end %>
 
   <div class="form-group">
+    <%= f.label :stock_id %><br>
+    <%= f.collection_select :stock_id, @stocks, :id, :symbol, {}, { class: 'form-control' } %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :action %><br>
     <%= f.select :action, options_for_select(@actions.collect { |s| [s[0].humanize, s[0]] }, selected: @event.action), {}, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :stock_id %><br>
-    <%= f.collection_select :stock_id, @stocks, :id, :symbol, { }, { class: 'form-control' } %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :quantity %><br>
-    <%= f.text_field :quantity, class: 'form-control'  %>
   </div>
 
   <div class="form-group">
@@ -38,6 +33,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :quantity %><br>
+    <%= f.text_field :quantity, class: 'form-control'  %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :price %><br>
     <%= f.text_field :price, class: 'form-control', placeholder: '10.00'  %>
   </div>
@@ -49,7 +49,7 @@
 
   <div class="form-group">
     <%= f.label :executed_on %><br>
-    <%= f.date_select :executed_on, {order: [:year, :month, :day], end_year: Date.today.year}, class: 'form-control' %>
+    <%= f.date_select :executed_on, { order: [:year, :month, :day], end_year: Date.today.year, default: { day: 15 } }, class: 'form-control' %>
   </div>
 
   <div class="actions">
