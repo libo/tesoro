@@ -1,3 +1,3 @@
-class Stock < ActiveRecord::Base
+class Stock < ApplicationRecord
   has_many :events
 end
