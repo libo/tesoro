@@ -5,8 +5,7 @@ class ImportsController < ApplicationController
 
   def index
     @events = current_user.events.order(:executed_on).all
-
-    respond_with(@events)
+    @filename = "tesoro-#{Time.now.strftime("%m-%d_%H-%M-%S")}.csv"
   end
 
   def create
