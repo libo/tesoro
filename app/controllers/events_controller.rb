@@ -15,7 +15,7 @@ class EventsController < ApplicationController
       @year = Date.today.year
     end
 
-    @events = current_user.events.order(:executed_on, :action).includes(:stock, :currency).all
+    @events = current_user.events.events_for_year(@year).order(:executed_on, :action).includes(:stock, :currency).all
     @total_capital_gain = current_user.events.total_capital_gain(@year)
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold
@@ -64,16 +64,16 @@ class EventsController < ApplicationController
   private
 
   def start_year
-    if @events.first
-      @events.first.executed_on.year
+    if current_user.events.first
+      current_user.events.first.executed_on.year
     else
       Time.now.year - 2
     end
   end
 
   def end_year
-    if @events.last
-      @events.last.executed_on.year
+    if current_user.events.last
+      current_user.events.last.executed_on.year
     else
       Time.now.year
     end
