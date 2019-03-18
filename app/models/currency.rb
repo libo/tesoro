@@ -1,4 +1,4 @@
-class Currency < ActiveRecord::Base
+class Currency < ApplicationRecord
   validates :name, presence: true
   validates :code, presence: true
   validates :locale, presence: true

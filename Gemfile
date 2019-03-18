@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 ruby '2.4.5'
 
-gem 'rails', '4.2.10'
+gem 'rails', '5.2.2.1'
+gem 'bootsnap', require: false
 gem 'sass-rails', '~> 5.0.4'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.2.2'
 gem 'rails_12factor', group: :production
 gem 'dotenv-rails'
 gem 'turbolinks'
@@ -39,10 +40,11 @@ gem 'rspec-rails'
 group :development do
   gem 'better_errors'
   gem 'spring'
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
   gem 'capistrano-rails'
   gem 'binding_of_caller'
   gem 'web-console', '~> 2.0'
+  gem 'listen'
 end
 
 # Use debugger

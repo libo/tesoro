@@ -1,4 +1,4 @@
-class CreateConversions < ActiveRecord::Migration
+class CreateConversions < ActiveRecord::Migration[4.2]
   def change
     create_table :conversions do |t|
       t.references :currency

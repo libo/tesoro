@@ -1,6 +1,6 @@
 require 'smarter_csv'
 
-class Conversion < ActiveRecord::Base
+class Conversion < ApplicationRecord
   belongs_to :currency
 
   validates :currency, presence: true
