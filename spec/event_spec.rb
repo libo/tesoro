@@ -130,6 +130,18 @@ describe Event do
     expect(e4.capital_gain.to_i).to eq(81250)
   end
 
+  it "passes with correct tax on discount" do
+  # This one is testing the if correct tax is calculated from the discount we get when buying ESPP
+  # There is one purchase before it this feature was implemented and two after
+  e1 = Event.create(user: user, stock: fiat, action: :buy, quantity: 100, price: 95, executed_on: Date.parse('2020-6-14'), currency: currency)
+  e2 = Event.create(user: user, stock: fiat, action: :buy, quantity: 100, price: 100, price_discounted: 85, include_discount:true, executed_on: Date.parse('2020-07-13'), currency: currency)
+  e3 = Event.create(user: user, stock: fiat, action: :buy, quantity: 100, price: 150, price_discounted: 100, include_discount:true, executed_on: Date.parse('2020-08-13'), currency: currency)
+  
+  expect(e1.total_discounted().to_i).to eq(0)
+  expect(e2.total_discounted().to_i).to eq(8500)
+  expect(e3.total_discounted().to_i).to eq(10000)
+  
+  end 
   describe "#capital_gain" do
     it "handle case when the first event is a sell (empty pool)" do
       e = Event.create(user: user, stock: fiat, action: :sell, quantity: 500, price: 300, executed_on: Date.parse('2000-1-1'), currency: currency)
