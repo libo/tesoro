@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   validates :user, presence: true
   validates :stock, presence: true
   validates :currency, presence: true
-  validates :price, presence: true
+  validates :price, presence: true # Use this as the price real price at purchase
   validates :quantity, presence: true
   validates :executed_on, presence: true
 
@@ -23,6 +23,19 @@ class Event < ApplicationRecord
     year_range = (day...day + 1.year)
 
     where(executed_on: year_range)
+  end
+
+  def self.total_discount(year)
+    total_discount = buy
+      .events_for_year(year)
+      .sum(&:total_discounted)
+    total_price = buy
+      .events_for_year(year)
+      .sum(&:total)
+
+    return 0 if total_discount == 0
+
+    (total_price - total_discount).round(2)
   end
 
   def pool
@@ -54,6 +67,11 @@ class Event < ApplicationRecord
     price * quantity * conversion_rate
   end
 
+  def total_discounted
+    return 0 unless include_discount
+    price_discounted * quantity * conversion_rate
+  end
+
   def average_carrying
     return 0 if pool[:size] == 0
 
@@ -68,6 +86,12 @@ class Event < ApplicationRecord
       cost = (quantity.to_f / previous_event.pool[:size]) * previous_event.pool[:value]
 
       (total - cost).round(2)
+    end
+  end
+
+  def discount
+    if buy?
+      ((price - price_discounted) * quantity * conversion_rate).round(2)
     end
   end
 

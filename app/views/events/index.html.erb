@@ -30,11 +30,13 @@
       <th>Symbol</th>
       <th>Qty</th>
       <th>Price</th>
+      <th>Price Discounted</th>
       <th>Currency</th>
       <th>Conversion</th>
       <th>Tot</th>
       <th>Average Carrying</th>
       <th>Capital Gain</th>
+      <th>Discount</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -47,11 +49,13 @@
         <td><%= event.stock.symbol %></td>
         <td><%= event.quantity %></td>
         <td><%= event.price %></td>
+        <td><%= event.price_discounted %></td>
         <td><%= event.currency.code %></td>
         <td><%= event.conversion_rate %></td>
         <td><%= number_to_currency(event.total, locale: :da) %></td>
         <td><%= number_to_currency(event.average_carrying, locale: event.currency.locale) %></td>
         <td><%= number_to_currency(event.capital_gain, locale: :da) %></td>
+        <td><%= number_to_currency(event.discount, locale: :da) %></td>
         <td class="event-edit"><%= link_to 'Edit', edit_event_path(event) %></td>
         <td class="event-destroy"><%= link_to 'Destroy', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -75,6 +79,11 @@ $(function() {
 </p>
 
 <p>
+  <strong>Total discount this year:</strong>
+  <%= number_to_currency(@total_discount, locale: :da) %>
+</p>
+
+<p>
   <strong>Total stocks acquired:</strong>
   <%= @quantity_acquired %>
 </p>
@@ -93,12 +102,16 @@ $(function() {
 
 <h3>To pay in <%= @year %></h3>
 <p>
-  <strong>Total taxes for not married:</strong>
+  <strong>Total capital gain taxes for not married:</strong>
   <%= number_to_currency(@taxes_unmarried, locale: :da) %>
 </p>
 <p>
-  <strong>Total taxes for married:</strong>
+  <strong>Total capital gain taxes for married:</strong>
   <%= number_to_currency(@taxes_married, locale: :da) %>
+</p>
+<p>
+  <strong>Total taxes from discount:</strong>
+  <%= number_to_currency(@taxes_on_discount, locale: :da) %>
 </p>
 
 <br>

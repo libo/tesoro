@@ -17,11 +17,13 @@ class EventsController < ApplicationController
 
     @events = current_user.events.events_for_year(@year).order(:executed_on, :action).includes(:stock, :currency).all
     @total_capital_gain = current_user.events.total_capital_gain(@year)
+    @total_discount = current_user.events.total_discount(@year)
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold
 
     @taxes_unmarried = TaxCalculator.taxes_on(@total_capital_gain, @year, false)
     @taxes_married = TaxCalculator.taxes_on(@total_capital_gain, @year, true)
+    @taxes_on_discount = TaxCalculator.taxes_on_discount(@total_discount, @year)
 
     @start_year = start_year
     @end_year = end_year
@@ -89,6 +91,8 @@ class EventsController < ApplicationController
       :stock_id,
       :quantity,
       :price,
+      :price_discounted,
+      :include_discount,
       :commission,
       :currency_id,
       :executed_on

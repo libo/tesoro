@@ -43,6 +43,16 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :price_discounted %><br>
+    <%= f.text_field :price_discounted, class: 'form-control', placeholder: '10.00'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :include_discount %><br>
+    <%= f.check_box :include_discount, class: 'form-control'  %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :commission %><br>
     <%= f.text_field :commission, class: 'form-control', placeholder: '0.00'  %>
   </div>

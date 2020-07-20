@@ -15,4 +15,10 @@ class TaxCalculator
       [0, (ammount - cut)].max * percentage_2
 
   end
+
+  def self.taxes_on_discount(amount, year)
+    percentage = 0.36
+
+    amount * percentage
+  end
 end
