@@ -1,18 +1,26 @@
 class TaxCalculator
-  def self.taxes_on(ammount, year, married = false)
-    # todo make it parametric on year
+  # From SKAT Satser https://www.skat.dk/SKAT.aspx?oId=2035568
+  PROGRESSIVE_RATES = {
+    "2021" => 56500,
+    "2020" => 55300,
+    "2019" => 54000,
+    "2018" => 52900,
+    "2017" => 51700,
+    "2016" => 50600,
+    "2015" => 49900
+  }
+  LOW_RATE = 0.27
+  HIGH_RATE = 0.42
 
+  def self.taxes_on(ammount, year, married = false)
     if married
-      cut = 99800
+      cut = PROGRESSIVE_RATES[year.to_s] * 2
     else
-      cut = 49900
+      cut = PROGRESSIVE_RATES[year.to_s]
     end
 
-    percentage_1 = 0.27
-    percentage_2 = 0.42
-
-    [ammount, cut].min * percentage_1 +
-      [0, (ammount - cut)].max * percentage_2
+    [ammount, cut].min * LOW_RATE +
+      [0, (ammount - cut)].max * HIGH_RATE
 
   end
 end
