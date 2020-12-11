@@ -20,8 +20,8 @@ class EventsController < ApplicationController
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold
 
-    @taxes_unmarried = TaxCalculator.taxes_on(@total_capital_gain, @year, false)
-    @taxes_married = TaxCalculator.taxes_on(@total_capital_gain, @year, true)
+    @taxes_unmarried = TaxCalculator::Unmarried.taxes_on(@total_capital_gain, @year)
+    @taxes_married = TaxCalculator::Married.taxes_on(@total_capital_gain, @year)
 
     @start_year = start_year
     @end_year = end_year
