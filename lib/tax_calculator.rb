@@ -12,15 +12,22 @@ class TaxCalculator
   LOW_RATE = 0.27
   HIGH_RATE = 0.42
 
-  def self.taxes_on(ammount, year, married = false)
-    if married
+  def self.taxes_on(amount, cut:)
+    [amount, cut].min * LOW_RATE +
+      [0, (amount - cut)].max * HIGH_RATE
+  end
+
+  class Married
+    def self.taxes_on(amount, year)
       cut = PROGRESSIVE_RATES[year.to_s] * 2
-    else
-      cut = PROGRESSIVE_RATES[year.to_s]
+      TaxCalculator.taxes_on(amount, cut: cut)
     end
+  end
 
-    [ammount, cut].min * LOW_RATE +
-      [0, (ammount - cut)].max * HIGH_RATE
-
+  class Unmarried
+    def self.taxes_on(amount, year)
+      cut = PROGRESSIVE_RATES[year.to_s]
+      TaxCalculator.taxes_on(amount, cut: cut)
+    end
   end
 end
