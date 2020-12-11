@@ -79,7 +79,7 @@ class Event < ApplicationRecord
     # ordered so that buy are before sales.
     Event.order(:executed_on, :action)
       .where("executed_on <= ?", executed_on)
-      .where(user: user)
-      .where(stock: stock)
+      .where(user_id: user_id)
+      .where(stock_id: stock_id)
   end
 end
