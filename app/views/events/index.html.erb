@@ -3,7 +3,7 @@
 <div class="container-fluid" style="margin-bottom:12px">
   <div class="row">
     <div class="col-xs-12 col-md-8" style="padding:0">
-      <%= link_to("Download all events in CSV", events_path(format: :csv)) %>
+      <%= link_to("Download all events for #{@year} in CSV", events_path(format: :csv, "date[year]" => @year)) %>
     </div>
     <div class="col-xs-6 col-md-4" style="text-align:right;padding:0">
       <%= link_to 'Add a new event', new_event_path, class: "btn btn-info" %>
