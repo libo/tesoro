@@ -9,7 +9,7 @@ csv.rows @events do |csv, event|
   csv.cell :price, event.price
   csv.cell :currency, event.currency.code
   csv.cell :conversion, event.conversion_rate
-  csv.cell :total, event.total
-  csv.cell :average_carrying, event.average_carrying
-  csv.cell :capital_gain, event.capital_gain
+  csv.cell :total, number_to_currency(event.total, locale: :da)
+  csv.cell :average_carrying, number_to_currency(event.average_carrying, locale: event.currency.locale)
+  csv.cell :capital_gain, number_to_currency(event.capital_gain, locale: :da)
 end
