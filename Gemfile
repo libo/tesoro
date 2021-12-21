@@ -13,7 +13,7 @@ gem 'dalli'
 gem 'responders'
 
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
