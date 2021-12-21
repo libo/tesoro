@@ -5,7 +5,7 @@ gem 'rails', '5.2.6'
 gem 'bootsnap', require: false
 gem 'sass-rails', '~> 5.0.4'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2.2'
+gem 'coffee-rails', '~> 5.0.0'
 gem 'rails_12factor', group: :production
 gem 'dotenv-rails'
 gem 'turbolinks'
