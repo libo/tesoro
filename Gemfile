@@ -39,7 +39,7 @@ gem 'rspec-rails'
 group :development do
   gem 'better_errors'
   gem 'spring'
-  gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3'
   gem 'capistrano-rails'
   gem 'binding_of_caller'
   gem 'web-console', '~> 2.0'
