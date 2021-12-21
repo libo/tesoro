@@ -178,9 +178,9 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    responders (2.4.1)
-      actionpack (>= 4.2.0, < 6.0)
-      railties (>= 4.2.0, < 6.0)
+    responders (3.0.1)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -275,7 +275,7 @@ DEPENDENCIES
   rails (= 5.2.6)
   rails-timeago (~> 2.0)
   rails_12factor
-  responders (~> 2.0)
+  responders
   rspec-rails
   sass-rails (~> 5.0.4)
   smarter_csv

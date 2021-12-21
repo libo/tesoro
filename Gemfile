@@ -10,7 +10,7 @@ gem 'rails_12factor', group: :production
 gem 'dotenv-rails'
 gem 'turbolinks'
 gem 'dalli'
-gem 'responders', '~> 2.0'
+gem 'responders'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
