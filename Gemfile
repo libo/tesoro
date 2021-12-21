@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.7.5'
 
-gem 'rails', '5.2.6'
+gem 'rails', '6.0.4.4'
 gem 'bootsnap', require: false
 gem 'sass-rails', '~> 5.0.4'
 gem 'uglifier', '>= 1.3.0'
