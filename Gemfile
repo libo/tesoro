@@ -33,7 +33,7 @@ gem 'rails-timeago', '~> 2.0'
 gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-gem 'unicorn'
+gem 'puma'
 gem 'rspec-rails'
 
 group :development do
