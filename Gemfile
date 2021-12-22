@@ -5,15 +5,15 @@ gem 'rails', '5.2.6'
 gem 'bootsnap', require: false
 gem 'sass-rails', '~> 5.0.4'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2.2'
+gem 'coffee-rails', '~> 5.0.0'
 gem 'rails_12factor', group: :production
 gem 'dotenv-rails'
 gem 'turbolinks'
 gem 'dalli'
-gem 'responders', '~> 2.0'
+gem 'responders'
 
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
@@ -39,7 +39,7 @@ gem 'rspec-rails'
 group :development do
   gem 'better_errors'
   gem 'spring'
-  gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3'
   gem 'capistrano-rails'
   gem 'binding_of_caller'
   gem 'web-console', '~> 2.0'
