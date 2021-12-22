@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.5'
+ruby '3.0.3'
 
 gem 'rails', '6.1.4.4'
 gem 'bootsnap', require: false
@@ -32,8 +32,7 @@ gem 'rails-timeago', '~> 2.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-gem 'unicorn'
+gem 'puma'
 gem 'rspec-rails'
 
 group :development do
