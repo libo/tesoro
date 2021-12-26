@@ -23,12 +23,10 @@ class Currency < ApplicationRecord
     cache_key = "conversion_on/#{on}"
 
     Rails.cache.fetch(cache_key) do
-      conversion = Conversion.where(book_on: on).where(currency: self).first
+      conversion = near_conversion(on)
 
       if conversion.present?
         conversion.rate
-      elsif nc = near_conversion(on)
-        nc.rate
       else
         default_conversion_rate
       end
@@ -38,7 +36,7 @@ class Currency < ApplicationRecord
   private
 
   def near_conversion(on)
-    Conversion.where("book_on < ?", on).
+    Conversion.where("book_on <= ?", on).
       order("book_on DESC").
       where(currency: self).first
   end
