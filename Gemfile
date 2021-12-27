@@ -30,7 +30,7 @@ gem 'active_model_serializers', '0.8.0'
 gem 'rails-timeago', '~> 2.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.16'
 
 gem 'puma'
 gem 'rspec-rails'
