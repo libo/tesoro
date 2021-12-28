@@ -137,4 +137,15 @@ describe Event do
       expect { e.capital_gain }.to_not raise_error
     end
   end
+
+  describe "#this_and_previous_events" do
+    it "return same order when on same date VS on different date" do
+      e1 = Event.create(executed_on: Date.parse('2021-11-15'), action: :buy, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+      e2 = Event.create(executed_on: Date.parse('2021-12-07'), action: :sell, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+      e3 = Event.create(executed_on: Date.parse('2021-12-07'), action: :sell, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+      e4 = Event.create(executed_on: Date.parse('2021-12-15'), action: :buy, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+
+      expect(e4.this_and_previous_events.all).to eq([e1,e2,e3,e4])
+    end
+  end
 end
