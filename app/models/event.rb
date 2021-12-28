@@ -26,7 +26,7 @@ class Event < ApplicationRecord
   end
 
   def pool
-    cache_key = Digest::SHA1.hexdigest(this_and_previous_events.map(&:cache_key).join('/'))
+    cache_key = Digest::SHA1.hexdigest(this_and_previous_events.map(&:cache_key_with_version).join('/'))
 
     Rails.cache.fetch("event_pool/#{cache_key}", expires_in: 12.hours) do
       size = 0
