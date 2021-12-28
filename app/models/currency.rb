@@ -4,7 +4,7 @@ class Currency < ApplicationRecord
   validates :locale, presence: true
   validates :default_conversion_rate, presence: true
 
-  DEFAULT_CURRENCY = 'DDK'
+  DEFAULT_CURRENCY = 'DKK'
 
   def self.most_used_in_events_id
     if event = Event.last
@@ -20,7 +20,7 @@ class Currency < ApplicationRecord
   def conversion_rate_to_default_currency(on)
     return 1 if code.upcase == DEFAULT_CURRENCY
 
-    cache_key = "conversion_on/#{on}"
+    cache_key = "conversion_on/#{on}/#{code}"
 
     Rails.cache.fetch(cache_key) do
       conversion = near_conversion(on)
