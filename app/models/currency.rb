@@ -1,4 +1,6 @@
 class Currency < ApplicationRecord
+  has_many :conversions, dependent: :delete_all
+
   validates :name, presence: true
   validates :code, presence: true
   validates :locale, presence: true
