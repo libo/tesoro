@@ -77,9 +77,10 @@ class Event < ApplicationRecord
 
   def this_and_previous_events
     # ordered so that buy are before sales.
-    Event.order(:executed_on, :action)
+    @this_and_previous_events ||= Event.order(:executed_on, :action)
       .where("executed_on <= ?", executed_on)
       .where(user_id: user_id)
       .where(stock_id: stock_id)
+      .includes(:currency)
   end
 end
