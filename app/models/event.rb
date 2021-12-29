@@ -28,28 +28,7 @@ class Event < ApplicationRecord
   end
 
   def pool
-    cache_key = Digest::SHA1.hexdigest(this_and_previous_events.map(&:cache_key_with_version).join('/'))
-
-    Rails.cache.fetch("event_pool/#{cache_key}", expires_in: 12.hours) do
-      size = 0
-      value = 0
-
-      this_and_previous_events.each do |event|
-        if event.buy?
-          value += event.total
-          size += event.quantity
-        else
-          next if size == 0
-          value -= ((event.quantity.to_f / size.to_f) * value).round(2)
-          size -= event.quantity
-        end
-      end
-
-      {
-        size: size,
-        value: value,
-      }
-    end
+    Pool.for_event(self)
   end
 
   def total
@@ -57,16 +36,16 @@ class Event < ApplicationRecord
   end
 
   def average_carrying
-    return 0 if pool[:size] == 0
+    return 0 if pool.empty?
 
-    ((pool[:value] / pool[:size])/conversion_rate).round(2)
+    ((pool.value / pool.size)/conversion_rate).round(2)
   end
 
   def capital_gain
     if sell?
       return 0 unless previous_event.present?
 
-      cost = (quantity.to_f / previous_event.pool[:size]) * previous_event.pool[:value]
+      cost = (quantity.to_f / previous_event.pool.size) * previous_event.pool.value
 
       (total - cost).round(2)
     end
