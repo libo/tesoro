@@ -1,6 +1,7 @@
 class TaxCalculator
   # From SKAT Satser https://www.skat.dk/SKAT.aspx?oId=2035568
   PROGRESSIVE_RATES = {
+    "2022" => 57200,
     "2021" => 56500,
     "2020" => 55300,
     "2019" => 54000,
