@@ -28,7 +28,7 @@ class Event < ApplicationRecord
   end
 
   def pool
-    Pool.for_event(self)
+    @pool ||= Pool.for_event(self)
   end
 
   def total
@@ -61,14 +61,6 @@ class Event < ApplicationRecord
       .where(user_id: user_id)
       .where(stock_id: stock_id)
       .last
-  end
-
-  def this_and_previous_events
-    @this_and_previous_events ||= Event.order(:sort_column)
-      .where("sort_column <= ?", sort_column)
-      .where(user_id: user_id)
-      .where(stock_id: stock_id)
-      .includes(:currency)
   end
 
   def set_sort_column

@@ -1,16 +1,20 @@
 class Pool
   def self.for_event(event)
-    cache_key = Digest::SHA1.hexdigest(event.this_and_previous_events.map(&:cache_key_with_version).join('/'))
+    cache_key = Digest::SHA1.hexdigest(event.cache_key_with_version)
 
     Rails.cache.fetch("event_pool/#{cache_key}", expires_in: 12.hours) do
-      pool = new
+      previous_pool = if event.previous_event.present?
+                        for_event(event.previous_event)
+                      else
+                        new
+                      end
 
-      event.this_and_previous_events.each do |event|
-        if event.buy?
-          pool.add_purchase(event)
-        else
-          pool.add_sale(event)
-        end
+      pool = new(value: previous_pool.value, size: previous_pool.size)
+
+      if event.buy?
+        pool.add_purchase(event)
+      else
+        pool.add_sale(event)
       end
 
       pool
