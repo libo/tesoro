@@ -15,7 +15,7 @@ class EventsController < ApplicationController
       @year = end_year
     end
 
-    @events = current_user.events.events_for_year(@year).order(:executed_on, :action).includes(:stock, :currency).all
+    @events = current_user.events.events_for_year(@year).order(:sort_column).includes(:stock, :currency).all
     @total_capital_gain = current_user.events.total_capital_gain(@year)
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold

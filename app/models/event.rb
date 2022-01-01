@@ -64,7 +64,6 @@ class Event < ApplicationRecord
 
   def capital_gain
     if sell?
-      previous_event = this_and_previous_events[-2]
       return 0 unless previous_event.present?
 
       cost = (quantity.to_f / previous_event.pool[:size]) * previous_event.pool[:value]
@@ -77,10 +76,17 @@ class Event < ApplicationRecord
     currency.conversion_rate_to_default_currency(executed_on)
   end
 
+  def previous_event
+    @previous_event ||= Event.order(:sort_column)
+      .where("sort_column < ?", sort_column)
+      .where(user_id: user_id)
+      .where(stock_id: stock_id)
+      .last
+  end
+
   def this_and_previous_events
-    # ordered so that buy are before sales.
-    @this_and_previous_events ||= Event.order(:executed_on, :action)
-      .where("executed_on <= ?", executed_on)
+    @this_and_previous_events ||= Event.order(:sort_column)
+      .where("sort_column <= ?", sort_column)
       .where(user_id: user_id)
       .where(stock_id: stock_id)
       .includes(:currency)
