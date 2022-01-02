@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_31_004018) do
+ActiveRecord::Schema.define(version: 2022_01_01_221305) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -70,6 +70,13 @@ ActiveRecord::Schema.define(version: 2021_12_31_004018) do
     t.datetime "updated_at"
     t.string "sort_column"
     t.index ["sort_column"], name: "index_events_on_sort_column", unique: true
+  end
+
+  create_table "pools", force: :cascade do |t|
+    t.integer "event_id"
+    t.decimal "value", precision: 8, scale: 2, default: "0.0"
+    t.integer "size", default: 0
+    t.index ["event_id"], name: "index_pools_on_event_id", unique: true
   end
 
   create_table "stocks", force: :cascade do |t|

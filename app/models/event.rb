@@ -3,6 +3,8 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :currency
 
+  has_one :pool
+
   validates :user, presence: true
   validates :stock, presence: true
   validates :currency, presence: true
@@ -25,10 +27,6 @@ class Event < ApplicationRecord
     year_range = (day...day + 1.year)
 
     where(executed_on: year_range)
-  end
-
-  def pool
-    @pool ||= Pool.for_event(self)
   end
 
   def total
@@ -61,6 +59,13 @@ class Event < ApplicationRecord
       .where(user_id: user_id)
       .where(stock_id: stock_id)
       .last
+  end
+
+  def this_and_following_events
+    Event.order(:sort_column)
+      .where("sort_column >= ?", sort_column)
+      .where(user_id: user_id)
+      .where(stock_id: stock_id)
   end
 
   def set_sort_column

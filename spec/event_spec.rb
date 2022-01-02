@@ -150,4 +150,15 @@ describe Event do
       expect(e4.previous_event).to eq(e3)
     end
   end
+
+  describe "#this_and_following_events" do
+    it "return in correct order when on same date VS on different date" do
+      e1 = Event.create(executed_on: Date.parse('2021-11-15'), action: :buy, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+      e2 = Event.create(executed_on: Date.parse('2021-12-07'), action: :sell, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+      e3 = Event.create(executed_on: Date.parse('2021-12-07'), action: :sell, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+      e4 = Event.create(executed_on: Date.parse('2021-12-15'), action: :buy, quantity: 100, price: 10, user: user, stock: fiat, currency: currency)
+
+      expect(e2.this_and_following_events).to eq([e2, e3, e4])
+    end
+  end
 end

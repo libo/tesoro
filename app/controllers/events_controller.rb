@@ -15,7 +15,7 @@ class EventsController < ApplicationController
       @year = end_year
     end
 
-    @events = current_user.events.events_for_year(@year).order(:sort_column).includes(:stock, :currency).all
+    @events = current_user.events.events_for_year(@year).order(:sort_column).includes(:stock, :currency, :pool).all
     @total_capital_gain = current_user.events.total_capital_gain(@year)
     @quantity_acquired = current_user.quantity_acquired
     @quantity_sold = current_user.quantity_sold
@@ -40,6 +40,8 @@ class EventsController < ApplicationController
     @event = current_user.events.new(event_params)
 
     if @event.save
+      Pool.recalculate(@event)
+
       flash[:notice] = 'Event was successfully created.'
       redirect_to events_path
     else
@@ -49,6 +51,8 @@ class EventsController < ApplicationController
 
   def update
     @event.update(event_params)
+    Pool.recalculate(@event)
+
     flash[:notice] = 'Event was successfully updated.'
 
     redirect_to events_path
@@ -56,6 +60,8 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
+    Pool.recalculate(@event)
+
     flash[:notice] = 'Event was removed.'
 
     redirect_to events_path

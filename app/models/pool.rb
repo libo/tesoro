@@ -1,31 +1,39 @@
-class Pool
-  def self.for_event(event)
-    cache_key = Digest::SHA1.hexdigest(event.cache_key_with_version)
+class Pool < ApplicationRecord
+  belongs_to :event
 
-    Rails.cache.fetch("event_pool/#{cache_key}", expires_in: 12.hours) do
-      previous_pool = if event.previous_event.present?
-                        for_event(event.previous_event)
-                      else
-                        new
-                      end
+  def self.recalculate(event)
+    # Delete the Pool for this event and all after it
+    later_event_ids = event.this_and_following_events.pluck(:id)
+    Pool.where(event_id: later_event_ids).delete_all
 
-      pool = new(value: previous_pool.value, size: previous_pool.size)
+    # (Recursively) add a Pool for this event and all after it
+    last_event = Event.find(later_event_ids.last)
+    create_event(last_event)
+  end
 
-      if event.buy?
-        pool.add_purchase(event)
-      else
-        pool.add_sale(event)
-      end
+  NullPool = Struct.new(:value, :size).new(0, 0)
 
-      pool
+  def self.create_event(event)
+    previous_pool = if event.previous_event.present?
+      find_by(event: event.previous_event) || create_event(event.previous_event)
+    else
+      NullPool
     end
-  end
 
-  def initialize(value: 0, size: 0)
-    self.value = value
-    self.size = size
+    pool = new(event: event)
+    pool.value = previous_pool.value
+    pool.size = previous_pool.size
+
+    if event.buy?
+      pool.add_purchase(event)
+    else
+      pool.add_sale(event)
+    end
+
+    pool.save!
+
+    pool
   end
-  attr_reader :value, :size
 
   def empty?
     size == 0
@@ -42,8 +50,4 @@ class Pool
     self.value -= ((event.quantity.to_f / size.to_f) * value).round(2)
     self.size -= event.quantity
   end
-
-  private
-
-  attr_writer :value, :size
 end
