@@ -12,6 +12,8 @@ class Event < ApplicationRecord
 
   enum action: [ :buy, :sell ]
 
+  before_validation :set_sort_column
+
   def self.total_capital_gain(year)
     sell
       .events_for_year(year)
@@ -82,5 +84,10 @@ class Event < ApplicationRecord
       .where(user_id: user_id)
       .where(stock_id: stock_id)
       .includes(:currency)
+  end
+
+  def set_sort_column
+    # Ordered so that buys are before sales.
+    self.sort_column = "#{executed_on.iso8601}/#{self.class.actions[action]}/#{Time.now.to_f}"
   end
 end

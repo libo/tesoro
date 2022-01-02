@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_194832) do
+ActiveRecord::Schema.define(version: 2021_12_31_004018) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 2021_12_27_194832) do
     t.date "executed_on"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "sort_column"
+    t.index ["sort_column"], name: "index_events_on_sort_column", unique: true
   end
 
   create_table "stocks", force: :cascade do |t|
