@@ -64,19 +64,13 @@ class EventsController < ApplicationController
   private
 
   def start_year
-    if current_user.events.first
-      current_user.events.first.executed_on.year
-    else
+    current_user.events.minimum(:executed_on)&.year ||
       Time.now.year - 2
-    end
   end
 
   def end_year
-    if current_user.events.last
-      current_user.events.last.executed_on.year
-    else
+    current_user.events.maximum(:executed_on)&.year ||
       Time.now.year
-    end
   end
 
   def set_event
