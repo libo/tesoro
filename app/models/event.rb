@@ -19,8 +19,7 @@ class Event < ApplicationRecord
   end
 
   def self.events_for_year(year)
-    day = Date.new(year)
-    year_range = (day...day + 1.year)
+    year_range = Date.new(year).all_year
 
     where(executed_on: year_range)
   end
