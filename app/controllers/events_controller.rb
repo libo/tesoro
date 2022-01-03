@@ -12,7 +12,7 @@ class EventsController < ApplicationController
     if params[:date].present? && params[:date][:year].present?
       @year = params[:date][:year].to_i
     else
-      @year = Date.today.year
+      @year = end_year
     end
 
     @events = current_user.events.events_for_year(@year).order(:executed_on, :action).includes(:stock, :currency).all
