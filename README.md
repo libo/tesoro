@@ -7,6 +7,11 @@ A simple web app to calculate taxes on capital gain according to the Danish tax 
 
 It kind of works.
 
+Prepare the app in developement with
+```
+bundle install --without production
+```
+
 You can load some example data with.
 
 ```
