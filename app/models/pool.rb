@@ -2,8 +2,15 @@ class Pool < ApplicationRecord
   belongs_to :event
 
   def self.recalculate(event)
-    # Delete the Pool for this event and all after it
+    # When deleting an event, its ID is not in "this_and_following_events".
+    Pool.where(event_id: event.id).delete_all if event.destroyed?
+
     later_event_ids = event.this_and_following_events.pluck(:id)
+
+    # After deleting the last event, do nothing.
+    return if later_event_ids.empty?
+
+    # Delete the Pool for this event and all after it
     Pool.where(event_id: later_event_ids).delete_all
 
     # (Recursively) add a Pool for this event and all after it
