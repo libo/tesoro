@@ -2,9 +2,9 @@ require 'tax_calculator'
 
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_stocks, only: [:edit, :new]
-  before_action :set_actions, only: [:edit, :new]
-  before_action :set_currencies, only: [:edit, :new]
+  before_action :set_stocks, only: [:edit, :new, :create]
+  before_action :set_actions, only: [:edit, :new, :create]
+  before_action :set_currencies, only: [:edit, :new, :create]
 
   respond_to :html, :csv
 
