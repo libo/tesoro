@@ -33,6 +33,14 @@ class Event < ApplicationRecord
     price * quantity * conversion_rate
   end
 
+  def pool
+    super || begin
+      Pool.recalculate(self)
+      reload
+      super
+    end
+  end
+
   def average_carrying
     return 0 if pool.empty?
 
