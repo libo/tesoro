@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '3.0.3'
 
-gem 'rails', '6.1.4.4'
+gem 'rails', '7.0.0'
 gem 'bootsnap', require: false
 gem 'sass-rails'
 gem 'uglifier'
@@ -30,7 +30,7 @@ gem 'active_model_serializers', '0.8.0'
 gem 'rails-timeago', '~> 2.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.16'
 
 gem 'puma'
 gem 'rspec-rails'
