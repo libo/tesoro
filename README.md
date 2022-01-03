@@ -7,7 +7,7 @@ A simple web app to calculate taxes on capital gain according to the Danish tax 
 
 It kind of works.
 
-Prepare the app in developement with
+Prepare the app in development with
 ```
 bundle install --without production
 ```
@@ -15,12 +15,12 @@ bundle install --without production
 You can load some example data with.
 
 ```
-rake db:migrate
-rake tesoro:import_usd_conversion  # Import USD/DDK conversion rate by Danish National Bank
-rails server
+bundle exec rake db:migrate
+bundle exec rails server
 open http://0.0.0.0:3000/
-[create a user]
-rake db:seed
+[create a user, via web interface click "Sign up"]
+bundle exec rake db:seed
+bundle exec rake tesoro:import_usd_conversion  # Import USD/DDK conversion rate by Danish National Bank
 ```
 
 ### TODO:
