@@ -228,7 +228,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    smarter_csv (1.2.9)
+    smarter_csv (1.4.2)
     spring (4.0.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
