@@ -1,4 +1,5 @@
 require 'tax_calculator'
+require 'stats_calculator'
 
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
@@ -17,8 +18,7 @@ class EventsController < ApplicationController
 
     @events = current_user.events.events_for_year(@year).order(:executed_on, :action).includes(:stock, :currency).all
     @total_capital_gain = current_user.events.total_capital_gain(@year)
-    @quantity_acquired = current_user.quantity_acquired
-    @quantity_sold = current_user.quantity_sold
+    @stats = StatsCalculator.stats_for_user(current_user)
 
     @taxes_unmarried = TaxCalculator::Unmarried.taxes_on(@total_capital_gain, @year)
     @taxes_married = TaxCalculator::Married.taxes_on(@total_capital_gain, @year)
