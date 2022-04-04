@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Event do
   let(:fiat) { Stock.create(name: 'Fiat Chrysler Automobiles NV', symbol: 'FCAU') }
-  let(:user) { User.create(email: 'test@example.com', password: '123456', password_confirmation: '123456')}
+  let(:user) { User.create(email: 'test@example.com', password: '12345678', password_confirmation: '12345678')}
   let(:currency) { Currency.create(name: 'Danish Krone', code: 'DKK', locale: :da, default_conversion_rate: 1) }
 
   it "passes Lars example 1" do
