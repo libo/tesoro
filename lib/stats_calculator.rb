@@ -1,13 +1,15 @@
 class StatsCalculator
-  def self.stats_for_user(user)
+  def self.stats_for_user(user, year)
+    year_end = Date.new(year).end_of_year
+
     stock_ids(user).map do |id|
       stock = Stock.find_by_id(id)
 
       {
         name: stock.name,
         sym: stock.symbol,
-        quantity_acquired: user.events.where(stock_id: id).buy.sum(:quantity),
-        quantity_sold: user.events.where(stock_id: id).sell.sum(:quantity)
+        quantity_acquired: user.events.where(stock_id: id).where("executed_on <= ?", year_end).buy.sum(:quantity),
+        quantity_sold: user.events.where(stock_id: id).where("executed_on <= ?", year_end).sell.sum(:quantity)
       }
     end
   end
