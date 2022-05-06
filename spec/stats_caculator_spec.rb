@@ -15,7 +15,7 @@ describe StatsCalculator do
     Event.create(user: user, stock: fiat, action: :buy, quantity: 100, price: 2, executed_on: Date.parse('2010-1-1'), currency: currency)
     Event.create(user: user, stock: moderna, action: :buy, quantity: 100, price: 2, executed_on: Date.parse('2010-1-1'), currency: currency)
     Event.create(user: user, stock: fiat, action: :sell, quantity: 30, price: 2, executed_on: Date.parse('2010-1-1'), currency: currency)
-    Event.create(user: user, stock: moderna, action: :sell, quantity: 10, price: 2, executed_on: Date.parse('2010-1-1'), currency: currency)
+    Event.create(user: user, stock: moderna, action: :sell, quantity: 10, price: 2, executed_on: Date.parse('2011-1-1'), currency: currency)
 
     Event.create(user: other_user, stock: other, action: :buy, quantity: 100, price: 2, executed_on: Date.parse('2010-1-1'), currency: currency)
   end
@@ -28,13 +28,19 @@ describe StatsCalculator do
   end
 
   describe ".stats_for_user" do
-    it "returns the stats" do
-      expected = [
-        {:name=>"Fiat Chrysler Automobiles NV", :quantity_acquired=>100, :quantity_sold=>30, :sym=>"FCAU"},
-        {:name=>"Moderna", :quantity_acquired=>100, :quantity_sold=>10, :sym=>"MRNA"}
+    it "returns the acquired/sold stats per the end of given year" do
+      expect(StatsCalculator.stats_for_user(user, 2009)).to eq [
+        {quantity_acquired: 0, quantity_sold: 0, sym: "FCAU", name: "Fiat Chrysler Automobiles NV"},
+        {quantity_acquired: 0, quantity_sold: 0, sym: "MRNA", name: "Moderna"}
       ]
-
-      expect(StatsCalculator.stats_for_user(user)).to eq(expected)
+      expect(StatsCalculator.stats_for_user(user, 2010)).to eq [
+        {quantity_acquired: 100, quantity_sold: 30, sym: "FCAU", name: "Fiat Chrysler Automobiles NV"},
+        {quantity_acquired: 100, quantity_sold: 0, sym: "MRNA", name: "Moderna"}
+      ]
+      expect(StatsCalculator.stats_for_user(user, 2011)).to eq [
+        {quantity_acquired: 100, quantity_sold: 30, sym: "FCAU", name: "Fiat Chrysler Automobiles NV"},
+        {quantity_acquired: 100, quantity_sold: 10, sym: "MRNA", name: "Moderna"}
+      ]
     end
   end
 end

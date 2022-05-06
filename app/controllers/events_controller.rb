@@ -18,7 +18,7 @@ class EventsController < ApplicationController
 
     @events = current_user.events.events_for_year(@year).order(:executed_on, :action).includes(:stock, :currency).all
     @total_capital_gain = current_user.events.total_capital_gain(@year)
-    @stats = StatsCalculator.stats_for_user(current_user)
+    @stats = StatsCalculator.stats_for_user(current_user, @year)
 
     @taxes_unmarried = TaxCalculator::Unmarried.taxes_on(@total_capital_gain, @year)
     @taxes_married = TaxCalculator::Married.taxes_on(@total_capital_gain, @year)
