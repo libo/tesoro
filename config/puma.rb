@@ -39,7 +39,7 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 #
 preload_app!
 
-rackup  DefaultRackup
+# rackup  DefaultRackup
 
 on_worker_boot do
   # Worker specific setup for Rails 4.1+
